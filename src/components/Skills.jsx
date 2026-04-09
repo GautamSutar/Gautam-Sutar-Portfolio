@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   SiPython, SiJavascript, SiTypescript, SiReact, SiDjango, SiFlask,
-  SiNodedotjs, SiMongodb, SiPostgresql, SiRedis, SiDocker, SiAmazonwebservices,
-  SiTensorflow, SiPytorch, SiApachekafka, SiScikitlearn, SiLangchain,
-  SiGit, SiStreamlit, SiCelery, SiMysql,
+  SiNodedotjs, SiMongodb, SiPostgresql, SiRedis, SiDocker,
+  SiTensorflow, SiPytorch, SiApachekafka, SiScikitlearn,
+  SiGit, SiStreamlit, SiMysql,
 } from 'react-icons/si';
+import { FaBrain, FaLeaf, FaAws, FaLink } from 'react-icons/fa';
 
 const allSkills = [
   // Languages
@@ -19,7 +20,7 @@ const allSkills = [
   { name: 'React',       icon: SiReact,         color: '#61DAFB', category: 'Frameworks' },
   { name: 'Node.js',     icon: SiNodedotjs,     color: '#339933', category: 'Frameworks' },
   { name: 'Streamlit',   icon: SiStreamlit,     color: '#FF4B4B', category: 'Frameworks' },
-  { name: 'Celery',      icon: SiCelery,        color: '#37814A', category: 'Frameworks' },
+  { name: 'Celery',      icon: FaLeaf,           color: '#37814A', category: 'Frameworks' },
 
   // Databases
   { name: 'PostgreSQL',  icon: SiPostgresql,    color: '#4169E1', category: 'Databases' },
@@ -29,7 +30,7 @@ const allSkills = [
 
   // Cloud & DevOps
   { name: 'Docker',      icon: SiDocker,        color: '#2496ED', category: 'Cloud & DevOps' },
-  { name: 'AWS',         icon: SiAmazonwebservices, color: '#FF9900', category: 'Cloud & DevOps' },
+  { name: 'AWS',         icon: FaAws,           color: '#FF9900', category: 'Cloud & DevOps' },
   { name: 'Git',         icon: SiGit,           color: '#F05032', category: 'Cloud & DevOps' },
   { name: 'Kafka',       icon: SiApachekafka,   color: '#231F20', category: 'Cloud & DevOps' },
 
@@ -37,7 +38,7 @@ const allSkills = [
   { name: 'TensorFlow',  icon: SiTensorflow,    color: '#FF6F00', category: 'AI & ML' },
   { name: 'PyTorch',     icon: SiPytorch,       color: '#EE4C2C', category: 'AI & ML' },
   { name: 'Scikit-learn',icon: SiScikitlearn,   color: '#F7931E', category: 'AI & ML' },
-  { name: 'LangChain',   icon: SiLangchain,     color: '#1C3C3C', category: 'AI & ML' },
+  { name: 'LangChain',   icon: FaLink,          color: '#34D399', category: 'AI & ML' },
 ];
 
 const categories = ['All', 'Languages', 'Frameworks', 'Databases', 'Cloud & DevOps', 'AI & ML'];
@@ -61,8 +62,10 @@ const SkillCard = ({ skill, idx }) => {
 
       {/* Icon */}
       <div
-        className="relative z-10 text-5xl transition-all duration-300 group-hover:drop-shadow-[0_0_12px_var(--glow)]"
-        style={{ '--glow': skill.color } as React.CSSProperties}
+        className="relative z-10 text-5xl transition-all duration-300"
+        style={{ filter: `drop-shadow(0 0 0px ${skill.color})` }}
+        onMouseEnter={e => e.currentTarget.style.filter = `drop-shadow(0 0 10px ${skill.color})`}
+        onMouseLeave={e => e.currentTarget.style.filter = `drop-shadow(0 0 0px ${skill.color})`}
       >
         <Icon style={{ color: skill.color }} />
       </div>
