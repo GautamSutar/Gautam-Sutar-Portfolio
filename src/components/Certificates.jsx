@@ -87,6 +87,18 @@ const certificates = [
     tag: 'Hackathon',
     tagColor: 'bg-orange-500/10 text-orange-300',
   },
+  {
+    id: 8,
+    title: 'Edunet Foundation Artificial Intelligence Internship',
+    issuer: 'Edunet Foundation',
+    date: '2024',
+    hours: null,
+    certNo: null,
+    verifyUrl: '#',
+    image: '/edunet.png',
+    tag: 'AI Internship',
+    tagColor: 'bg-indigo-500/10 text-indigo-300',
+  },
 ];
 
 const Certificates = () => {
@@ -107,43 +119,42 @@ const Certificates = () => {
           <p className="text-gray-400 mt-4 text-sm">Click any certificate to view it in detail</p>
         </motion.div>
 
-        {/* Inject reverse CSS & Creative 3D Wave */}
+        {/* Inject CSS for Marquee & Subtle Float */}
         <style dangerouslySetInnerHTML={{__html: `
-          @keyframes infinite-scroll-reverse {
-            /* Start far left, move right towards 0 */
-            0% { transform: translateX(calc(-50% - 12px)); }
-            100% { transform: translateX(0); }
+          @keyframes infinite-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 16px)); }
           }
-          .animate-infinite-scroll-reverse {
-            animation: infinite-scroll-reverse 45s linear infinite;
+          .animate-infinite-scroll {
+            animation: infinite-scroll 45s linear infinite;
             width: max-content;
-            padding-top: 40px;
-            padding-bottom: 40px;
+            padding-top: 20px;
+            padding-bottom: 20px;
           }
-          .animate-infinite-scroll-reverse:hover {
+          .animate-infinite-scroll:hover {
             animation-play-state: paused !important;
           }
-          /* Creative UI wave effect */
+          /* Subtle vertical wave effect without tilt */
           .cert-wrap:nth-child(even) {
-            transform: translateY(25px) rotate(3deg);
+            transform: translateY(10px);
           }
           .cert-wrap:nth-child(odd) {
-            transform: translateY(-25px) rotate(-3deg);
+            transform: translateY(-10px);
           }
           .cert-wrap:hover {
-            transform: translateY(0) rotate(0deg) scale(1.05) !important;
+            transform: translateY(0) scale(1.02) !important;
             z-index: 50;
           }
         `}} />
 
-        {/* Reverse Infinite Marquee Slider */}
-        <div className="overflow-hidden w-full py-10 -mx-4 px-4 sm:mx-0 sm:px-0 mt-4 relative perspective-1000">
+        {/* Infinite Marquee Slider */}
+        <div className="overflow-hidden w-full py-6 -mx-4 px-4 sm:mx-0 sm:px-0 mt-4 relative perspective-1000">
           
           {/* Subtle fade masks */}
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0a0a0a] to-transparent z-20 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0a0a0a] to-transparent z-20 pointer-events-none"></div>
 
-          <div className="animate-infinite-scroll-reverse flex gap-8">
+          <div className="animate-infinite-scroll flex gap-8">
             {/* First Set */}
             <div className="flex gap-8 shrink-0 mt-2">
               {certificates.map((cert, idx) => (

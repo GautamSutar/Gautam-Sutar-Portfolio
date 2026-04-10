@@ -43,24 +43,44 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid grid-cols-2 gap-6"
+            className="glass-panel p-8 md:p-12 relative overflow-hidden h-full flex flex-col justify-center border-l-4 border-blue-500/30 hover:border-blue-500/80 transition-colors duration-500"
           >
-            <div className="glass-card p-6 text-center hover:-translate-y-2 transition-transform duration-300">
-              <h4 className="text-4xl font-bold text-gradient mb-2">120K+</h4>
-              <p className="text-sm text-gray-400">Dataset Handled in ML</p>
-            </div>
-            <div className="glass-card p-6 text-center hover:-translate-y-2 transition-transform duration-300">
-              <h4 className="text-4xl font-bold text-gradient mb-2">25%</h4>
-              <p className="text-sm text-gray-400">Performance Improvement</p>
-            </div>
-            <div className="glass-card p-6 text-center hover:-translate-y-2 transition-transform duration-300">
-              <h4 className="text-4xl font-bold text-gradient mb-2">100</h4>
-              <p className="text-sm text-gray-400">Days of Python Code</p>
-            </div>
-            <div className="glass-card p-6 text-center hover:-translate-y-2 transition-transform duration-300">
-              <h4 className="text-4xl font-bold text-gradient mb-2">Scale</h4>
-              <p className="text-sm text-gray-400">Event-driven Systems</p>
-            </div>
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
+            
+            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+              <span className="text-emerald-400">⚡</span> Core Focus Areas
+            </h3>
+            
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 group">
+                <div className="mt-1 w-1.5 h-1.5 rounded-full bg-blue-500 group-hover:scale-150 transition-transform duration-300 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+                <div>
+                  <h4 className="text-white font-medium group-hover:text-blue-400 transition-colors">Backend Architecture & APIs</h4>
+                  <p className="text-xs text-gray-400 mt-1">Designing scalable, event-driven async systems with Python, Django, and Celery.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3 group">
+                <div className="mt-1 w-1.5 h-1.5 rounded-full bg-emerald-500 group-hover:scale-150 transition-transform duration-300 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
+                <div>
+                  <h4 className="text-white font-medium group-hover:text-emerald-400 transition-colors">AI & LLM Integration</h4>
+                  <p className="text-xs text-gray-400 mt-1">Embedding intelligent models directly into core infrastructures.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3 group">
+                <div className="mt-1 w-1.5 h-1.5 rounded-full bg-purple-500 group-hover:scale-150 transition-transform duration-300 shadow-[0_0_8px_rgba(168,85,247,0.8)]"></div>
+                <div>
+                  <h4 className="text-white font-medium group-hover:text-purple-400 transition-colors">Autonomous Agent Systems</h4>
+                  <p className="text-xs text-gray-400 mt-1">Building multi-agent task loops for optimization and enterprise workflows.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3 group">
+                <div className="mt-1 w-1.5 h-1.5 rounded-full bg-orange-500 group-hover:scale-150 transition-transform duration-300 shadow-[0_0_8px_rgba(249,115,22,0.8)]"></div>
+                <div>
+                  <h4 className="text-white font-medium group-hover:text-orange-400 transition-colors">Data Modeling & Performance</h4>
+                  <p className="text-xs text-gray-400 mt-1">Optimizing Postgres caching strategies, complex queries, and Redis pipelines.</p>
+                </div>
+              </li>
+            </ul>
           </motion.div>
         </div>
       </div>
