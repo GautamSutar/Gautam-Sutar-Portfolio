@@ -93,7 +93,7 @@ const Skills = () => {
       : allSkills.filter((s) => s.category === activeCategory);
 
   return (
-    <section id="skills" className="py-24 relative px-4">
+    <section id="skills" className="py-24 relative px-4 pointer-events-auto">
       {/* Background ambience */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 left-1/4 w-72 h-72 bg-blue-500/5 rounded-full blur-[100px]" />

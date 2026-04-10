@@ -5,7 +5,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-24 relative px-4 border-t border-white/5">
+    <section id="contact" className="py-24 relative px-4 border-t border-white/5 pointer-events-auto">
       {/* Background elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 bg-blue-500/5 rounded-full blur-[100px]"></div>
 

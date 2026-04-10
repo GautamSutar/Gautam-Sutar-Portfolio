@@ -93,7 +93,7 @@ const Certificates = () => {
   const [selectedCert, setSelectedCert] = useState(null);
 
   return (
-    <section id="certificates" className="py-20 relative px-4">
+    <section id="certificates" className="py-20 relative px-4 pointer-events-auto">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

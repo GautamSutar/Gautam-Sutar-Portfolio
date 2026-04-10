@@ -28,7 +28,7 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-20 relative px-4 bg-background">
+    <section id="experience" className="py-20 relative px-4 pointer-events-auto">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

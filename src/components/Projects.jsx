@@ -118,7 +118,7 @@ const Projects = () => {
   const filtered = filter === 'All' ? projects : projects.filter((p) => p.tag === filter);
 
   return (
-    <section id="projects" className="py-20 relative px-4">
+    <section id="projects" className="py-20 relative px-4 pointer-events-auto">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
