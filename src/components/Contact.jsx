@@ -142,7 +142,7 @@ const Contact = () => {
                       name="name"
                       required
                       className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                      placeholder="John Doe"
+                      placeholder="Write Your Name Here"
                     />
                   </div>
                   <div>
@@ -153,7 +153,7 @@ const Contact = () => {
                       name="email"
                       required
                       className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                      placeholder="john@example.com"
+                      placeholder="xyz@example.com"
                     />
                   </div>
                 </div>
