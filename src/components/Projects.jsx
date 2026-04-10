@@ -146,82 +146,193 @@ const Projects = () => {
               {tag}
             </button>
           ))}
-        </div>
+        {/* Inject CSS directly to ensure it loads bypassing Vite CSS caching */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes infinite-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 12px)); }
+          }
+          .animate-infinite-scroll {
+            animation: infinite-scroll 40s linear infinite;
+            width: max-content;
+          }
+          .animate-infinite-scroll:hover {
+            animation-play-state: paused !important;
+          }
+          /* Creative UI offset effect for Projects */
+          .project-wrap:nth-child(even) {
+            transform: translateY(20px);
+          }
+          .project-wrap:nth-child(odd) {
+            transform: translateY(-20px);
+          }
+          .project-wrap:hover {
+            transform: translateY(0) scale(1.02) !important;
+            z-index: 50;
+          }
+        `}} />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((project, idx) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.07 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="relative flex flex-col overflow-hidden group rounded-2xl p-[1px]"
-            >
-              {/* Animated glowing border background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 opacity-50 group-hover:opacity-100 rounded-2xl blur-sm" />
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 rounded-2xl" />
-              
-              {/* Card content */}
-              <div className="p-6 flex-1 flex flex-col relative z-10 glass-card rounded-2xl bg-[#0a0a0a]/90 backdrop-blur-xl h-full shadow-[0_0_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-shadow duration-500">
-                <div className="flex items-start justify-between gap-3 mb-4">
-                  <div className="w-full">
-                    <div className="flex justify-between items-center mb-2">
-                       <span className={`text-xs px-2.5 py-1 rounded-full font-semibold border ${project.tagColor.replace('bg-', 'border-').replace('/10', '/30')} ${project.tagColor} shadow-inner`}>
-                         {project.tag}
-                       </span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mt-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-emerald-400 transition-all duration-300">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm text-gray-400 mt-1 font-medium">{project.subtitle}</p>
-                  </div>
-                </div>
+        {/* Infinite Marquee Slider */}
+        <div className="overflow-hidden w-full py-12 -mx-4 px-4 sm:mx-0 sm:px-0 mt-4 relative">
+          
+          {/* Subtle fade masks on edges (optional for a cleaner look) */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0a0a0a] to-transparent z-20 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0a0a0a] to-transparent z-20 pointer-events-none"></div>
 
-                <p className="text-gray-300 text-sm leading-relaxed mb-5 flex-grow">{project.description}</p>
-
-                <ul className="mb-6 space-y-2 flex-grow">
-                  {project.impact.map((point, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                      <span className="text-emerald-400/70 group-hover:text-emerald-400 mt-0.5 shrink-0 transition-colors duration-300">▹</span> 
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex flex-wrap gap-2 mb-6 mt-auto">
-                  {project.tech.map((t, i) => (
-                    <span key={i} className="text-xs font-semibold text-blue-300 bg-white/5 px-2.5 py-1 rounded-md border border-white/10 group-hover:border-blue-500/30 group-hover:bg-blue-500/10 transition-colors duration-300">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex gap-4 pt-4 border-t border-white/5">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors text-sm font-medium"
+          <div className="animate-infinite-scroll flex gap-8">
+            {/* First Set */}
+            <div className="flex gap-8 shrink-0 mt-2">
+              {filtered.map((project, idx) => (
+                <div key={`${project.id}-1`} className="project-wrap w-[320px] md:w-[380px] shrink-0 h-full transition-all duration-500 ease-out"> 
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.05 }}
+                    whileHover={{ scale: 1 }} // Hover scale handled by CSS project-wrap
+                    className="relative flex flex-col overflow-hidden group rounded-2xl p-[1px] h-full"
                   >
-                    <FaGithub size={18} /> GitHub
-                  </a>
-                  {project.demo && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center gap-1.5 text-emerald-500 hover:text-emerald-400 transition-colors text-sm font-medium"
-                    >
-                      <ExternalLink size={16} /> Live Demo
-                    </a>
-                  )}
+                    {/* Animated glowing border background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 opacity-50 group-hover:opacity-100 rounded-2xl blur-sm" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 rounded-2xl" />
+                    
+                    {/* Card content */}
+                    <div className="p-6 flex-1 flex flex-col relative z-10 glass-card rounded-2xl bg-[#0a0a0a]/90 backdrop-blur-xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-shadow duration-500">
+                      <div className="flex items-start justify-between gap-3 mb-4">
+                        <div className="w-full">
+                          <div className="flex justify-between items-center mb-2">
+                             <span className={`text-[10px] px-2.5 py-1 rounded-full font-semibold border ${project.tagColor.replace('bg-', 'border-').replace('/10', '/30')} ${project.tagColor} shadow-inner`}>
+                               {project.tag}
+                             </span>
+                          </div>
+                          <h3 className="text-xl font-bold text-white mt-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-emerald-400 transition-all duration-300 line-clamp-1">
+                            {project.title}
+                          </h3>
+                          <p className="text-sm text-gray-400 mt-1 font-medium">{project.subtitle}</p>
+                        </div>
+                      </div>
+
+                      <p className="text-gray-300 text-sm leading-relaxed mb-5 flex-grow line-clamp-3">{project.description}</p>
+
+                      <ul className="mb-6 space-y-2 flex-grow">
+                        {project.impact.slice(0, 2).map((point, i) => (
+                          <li key={i} className="flex items-start gap-2 text-[13px] text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                            <span className="text-emerald-400/70 group-hover:text-emerald-400 mt-0.5 shrink-0 transition-colors duration-300">▹</span> 
+                            <span className="line-clamp-2">{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="flex flex-wrap gap-1.5 mb-6 mt-auto">
+                        {project.tech.slice(0, 4).map((t, i) => (
+                          <span key={i} className="text-[11px] font-semibold text-blue-300 bg-white/5 px-2 py-0.5 rounded-md border border-white/10 group-hover:border-blue-500/30 group-hover:bg-blue-500/10 transition-colors duration-300">
+                            {t}
+                          </span>
+                        ))}
+                        {project.tech.length > 4 && <span className="text-[11px] text-gray-500 px-1 py-0.5">+{project.tech.length - 4}</span>}
+                      </div>
+
+                      <div className="flex gap-4 pt-4 border-t border-white/5">
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors text-sm font-medium"
+                        >
+                          <FaGithub size={16} /> GitHub
+                        </a>
+                        {project.demo && (
+                          <a
+                            href={project.demo}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-1.5 text-emerald-500 hover:text-emerald-400 transition-colors text-sm font-medium"
+                          >
+                            <ExternalLink size={14} /> Live Demo
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              ))}
+            </div>
+            
+            {/* Duplicate Set Seamless Looping */}
+            <div className="flex gap-8 shrink-0 mt-2" aria-hidden="true">
+              {filtered.map((project, idx) => (
+                <div key={`${project.id}-2`} className="project-wrap w-[320px] md:w-[380px] shrink-0 h-full transition-all duration-500 ease-out"> 
+                  <motion.div
+                    whileHover={{ scale: 1 }}
+                    className="relative flex flex-col overflow-hidden group rounded-2xl p-[1px] h-full"
+                  >
+                    {/* Animated glowing border background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 opacity-50 group-hover:opacity-100 rounded-2xl blur-sm" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 rounded-2xl" />
+                    
+                    {/* Card content */}
+                    <div className="p-6 flex-1 flex flex-col relative z-10 glass-card rounded-2xl bg-[#0a0a0a]/90 backdrop-blur-xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-shadow duration-500">
+                      <div className="flex items-start justify-between gap-3 mb-4">
+                        <div className="w-full">
+                          <div className="flex justify-between items-center mb-2">
+                             <span className={`text-[10px] px-2.5 py-1 rounded-full font-semibold border ${project.tagColor.replace('bg-', 'border-').replace('/10', '/30')} ${project.tagColor} shadow-inner`}>
+                               {project.tag}
+                             </span>
+                          </div>
+                          <h3 className="text-xl font-bold text-white mt-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-emerald-400 transition-all duration-300 line-clamp-1">
+                            {project.title}
+                          </h3>
+                          <p className="text-sm text-gray-400 mt-1 font-medium">{project.subtitle}</p>
+                        </div>
+                      </div>
+
+                      <p className="text-gray-300 text-sm leading-relaxed mb-5 flex-grow line-clamp-3">{project.description}</p>
+
+                      <ul className="mb-6 space-y-2 flex-grow">
+                        {project.impact.slice(0, 2).map((point, i) => (
+                          <li key={i} className="flex items-start gap-2 text-[13px] text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                            <span className="text-emerald-400/70 group-hover:text-emerald-400 mt-0.5 shrink-0 transition-colors duration-300">▹</span> 
+                            <span className="line-clamp-2">{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="flex flex-wrap gap-1.5 mb-6 mt-auto">
+                        {project.tech.slice(0, 4).map((t, i) => (
+                          <span key={i} className="text-[11px] font-semibold text-blue-300 bg-white/5 px-2 py-0.5 rounded-md border border-white/10 group-hover:border-blue-500/30 group-hover:bg-blue-500/10 transition-colors duration-300">
+                            {t}
+                          </span>
+                        ))}
+                        {project.tech.length > 4 && <span className="text-[11px] text-gray-500 px-1 py-0.5">+{project.tech.length - 4}</span>}
+                      </div>
+
+                      <div className="flex gap-4 pt-4 border-t border-white/5">
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors text-sm font-medium"
+                        >
+                          <FaGithub size={16} /> GitHub
+                        </a>
+                        {project.demo && (
+                          <a
+                            href={project.demo}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-1.5 text-emerald-500 hover:text-emerald-400 transition-colors text-sm font-medium"
+                          >
+                            <ExternalLink size={14} /> Live Demo
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div></div>
 
         <div className="text-center mt-10">
           <a

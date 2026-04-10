@@ -46,13 +46,13 @@ const Hero = () => {
           </div>
 
           <div className="flex gap-6 pt-6">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="p-3 bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-all duration-300 hover:-translate-y-1">
+            <a href="https://github.com/GautamSutar" target="_blank" rel="noreferrer" className="p-3 bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-all duration-300 hover:-translate-y-1">
               <FaGithub size={22} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="p-3 bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-emerald-500/20 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:text-emerald-400 transition-all duration-300 hover:-translate-y-1">
+            <a href="https://www.linkedin.com/in/gautamsutar/" target="_blank" rel="noreferrer" className="p-3 bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-emerald-500/20 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:text-emerald-400 transition-all duration-300 hover:-translate-y-1">
               <FaLinkedin size={22} />
             </a>
-            <a href="mailto:contact@example.com" className="p-3 bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-blue-500/20 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:text-blue-400 transition-all duration-300 hover:-translate-y-1">
+            <a href="mailto:gautamsutar.in@gmail.com" className="p-3 bg-white/5 rounded-full text-gray-400 hover:text-white hover:bg-blue-500/20 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:text-blue-400 transition-all duration-300 hover:-translate-y-1">
               <Mail size={22} />
             </a>
           </div>

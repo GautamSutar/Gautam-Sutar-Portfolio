@@ -182,3 +182,19 @@
     border-right-color: var(--border);
   }
 }
+
+/* Infinite Scrolling Marquee */
+@keyframes infinite-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - 12px)); } /* Accounts for a 24px gap between duplicate containers */
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 40s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.pause-marquee:hover .animate-infinite-scroll {
+  animation-play-state: paused;
+}

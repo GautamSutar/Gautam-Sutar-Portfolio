@@ -31,7 +31,6 @@ function App() {
       
       <footer className="py-8 text-center text-gray-500 text-sm border-t border-white/5 relative z-10 bg-black/40 backdrop-blur-md pointer-events-auto">
         <p>© {new Date().getFullYear()} Gautam Sutar. All rights reserved.</p>
-        <p className="mt-2 text-xs">Built with React, Tailwind CSS & Framer Motion</p>
       </footer>
     </div>
   );

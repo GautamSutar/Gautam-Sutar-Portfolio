@@ -107,40 +107,141 @@ const Certificates = () => {
           <p className="text-gray-400 mt-4 text-sm">Click any certificate to view it in detail</p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {certificates.map((cert, idx) => (
-            <motion.div
-              key={cert.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.08 }}
-              onClick={() => setSelectedCert(cert)}
-              className="glass-card cursor-pointer group overflow-hidden flex flex-col"
-            >
-              {/* Thumbnail */}
-              <div className="h-40 overflow-hidden border-b border-white/5 flex-shrink-0">
-                <img
-                  src={cert.image}
-                  alt={cert.title}
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
+        {/* Inject reverse CSS & Creative 3D Wave */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes infinite-scroll-reverse {
+            /* Start far left, move right towards 0 */
+            0% { transform: translateX(calc(-50% - 12px)); }
+            100% { transform: translateX(0); }
+          }
+          .animate-infinite-scroll-reverse {
+            animation: infinite-scroll-reverse 45s linear infinite;
+            width: max-content;
+            padding-top: 40px;
+            padding-bottom: 40px;
+          }
+          .animate-infinite-scroll-reverse:hover {
+            animation-play-state: paused !important;
+          }
+          /* Creative UI wave effect */
+          .cert-wrap:nth-child(even) {
+            transform: translateY(25px) rotate(3deg);
+          }
+          .cert-wrap:nth-child(odd) {
+            transform: translateY(-25px) rotate(-3deg);
+          }
+          .cert-wrap:hover {
+            transform: translateY(0) rotate(0deg) scale(1.05) !important;
+            z-index: 50;
+          }
+        `}} />
 
-              {/* Info */}
-              <div className="p-4 flex flex-col gap-2 flex-1">
-                <span className={`text-xs px-2 py-0.5 rounded-full w-fit font-medium ${cert.tagColor}`}>
-                  {cert.tag}
-                </span>
-                <h3 className="text-sm font-bold text-white leading-snug line-clamp-2">{cert.title}</h3>
-                <div className="mt-auto pt-2 flex items-center justify-between">
-                  <p className="text-xs text-emerald-400 font-medium truncate">{cert.issuer}</p>
-                  <ExternalLink size={14} className="text-gray-500 group-hover:text-white transition-colors shrink-0 ml-2" />
+        {/* Reverse Infinite Marquee Slider */}
+        <div className="overflow-hidden w-full py-10 -mx-4 px-4 sm:mx-0 sm:px-0 mt-4 relative perspective-1000">
+          
+          {/* Subtle fade masks */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0a0a0a] to-transparent z-20 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0a0a0a] to-transparent z-20 pointer-events-none"></div>
+
+          <div className="animate-infinite-scroll-reverse flex gap-8">
+            {/* First Set */}
+            <div className="flex gap-8 shrink-0 mt-2">
+              {certificates.map((cert, idx) => (
+                <div key={`${cert.id}-1`} className="cert-wrap w-[300px] md:w-[350px] shrink-0 h-full transition-all duration-500 ease-out">
+                  <motion.div
+                    whileHover={{ scale: 1 }} // handled by css
+                    onClick={() => setSelectedCert(cert)}
+                    className="relative flex flex-col overflow-hidden group rounded-2xl p-[1px] cursor-pointer h-full"
+                  >
+                    {/* Animated glowing border background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 opacity-50 group-hover:opacity-100 rounded-2xl blur-sm" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 rounded-2xl" />
+
+                    <div className="flex-1 flex flex-col relative z-10 glass-card rounded-2xl bg-[#0a0a0a]/90 backdrop-blur-xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-shadow duration-500">
+                      {/* Thumbnail */}
+                      <div className="h-40 overflow-hidden border-b border-white/5 flex-shrink-0 relative rounded-t-2xl">
+                        <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none" />
+                        <img
+                          src={cert.image}
+                          alt={cert.title}
+                          className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700 ease-out"
+                        />
+                      </div>
+
+                      {/* Info */}
+                      <div className="p-5 flex flex-col gap-3 flex-1">
+                        <div className="flex justify-between items-start">
+                          <span className={`text-[10px] px-2.5 py-1 rounded-full font-semibold border ${cert.tagColor.replace('bg-', 'border-').replace('/10', '/30')} ${cert.tagColor} shadow-inner`}>
+                            {cert.tag}
+                          </span>
+                        </div>
+                        
+                        <h3 className="text-[15px] font-bold text-white leading-snug line-clamp-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-emerald-400 transition-all duration-300">
+                          {cert.title}
+                        </h3>
+                        
+                        <div className="mt-auto pt-3 border-t border-white/5 flex items-center justify-between">
+                          <div>
+                            <p className="text-xs font-semibold text-emerald-400 truncate">{cert.issuer}</p>
+                            {cert.date && <p className="text-[11px] text-gray-500 mt-0.5">{cert.date}</p>}
+                          </div>
+                          <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-blue-500/20 group-hover:border group-hover:border-blue-500/30 transition-all duration-300 ml-2 shrink-0">
+                            <ExternalLink size={14} className="text-gray-400 group-hover:text-blue-400 transition-colors" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
-                {cert.date && <p className="text-xs text-gray-500">{cert.date}</p>}
-              </div>
-            </motion.div>
-          ))}
+              ))}
+            </div>
+
+            {/* Duplicate Set for Seamless Looping */}
+            <div className="flex gap-8 shrink-0 mt-2" aria-hidden="true">
+              {certificates.map((cert) => (
+                <div key={`${cert.id}-2`} className="cert-wrap w-[300px] md:w-[350px] shrink-0 h-full transition-all duration-500 ease-out">
+                  <motion.div
+                    whileHover={{ scale: 1 }}
+                    onClick={() => setSelectedCert(cert)}
+                    className="relative flex flex-col overflow-hidden group rounded-2xl p-[1px] cursor-pointer h-full"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 opacity-50 group-hover:opacity-100 rounded-2xl blur-sm" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 rounded-2xl" />
+
+                    <div className="flex-1 flex flex-col relative z-10 glass-card rounded-2xl bg-[#0a0a0a]/90 backdrop-blur-xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-shadow duration-500">
+                      <div className="h-40 overflow-hidden border-b border-white/5 flex-shrink-0 relative rounded-t-2xl">
+                        <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none" />
+                        <img
+                          src={cert.image}
+                          alt={cert.title}
+                          className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700 ease-out"
+                        />
+                      </div>
+                      <div className="p-5 flex flex-col gap-3 flex-1">
+                        <div className="flex justify-between items-start">
+                          <span className={`text-[10px] px-2.5 py-1 rounded-full font-semibold border ${cert.tagColor.replace('bg-', 'border-').replace('/10', '/30')} ${cert.tagColor} shadow-inner`}>
+                            {cert.tag}
+                          </span>
+                        </div>
+                        <h3 className="text-[15px] font-bold text-white leading-snug line-clamp-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-emerald-400 transition-all duration-300">
+                          {cert.title}
+                        </h3>
+                        <div className="mt-auto pt-3 border-t border-white/5 flex items-center justify-between">
+                          <div>
+                            <p className="text-xs font-semibold text-emerald-400 truncate">{cert.issuer}</p>
+                            {cert.date && <p className="text-[11px] text-gray-500 mt-0.5">{cert.date}</p>}
+                          </div>
+                          <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-blue-500/20 group-hover:border group-hover:border-blue-500/30 transition-all duration-300 ml-2 shrink-0">
+                            <ExternalLink size={14} className="text-gray-400 group-hover:text-blue-400 transition-colors" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Modal */}
