@@ -153,56 +153,68 @@ const Projects = () => {
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.07 }}
-              className="glass-card flex flex-col overflow-hidden group"
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="relative flex flex-col overflow-hidden group rounded-2xl p-[1px]"
             >
-              <div className="p-6 flex-1 flex flex-col">
+              {/* Animated glowing border background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 opacity-50 group-hover:opacity-100 rounded-2xl blur-sm" />
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent group-hover:from-blue-500/50 group-hover:to-emerald-500/50 transition-colors duration-500 rounded-2xl" />
+              
+              {/* Card content */}
+              <div className="p-6 flex-1 flex flex-col relative z-10 glass-card rounded-2xl bg-[#0a0a0a]/90 backdrop-blur-xl h-full shadow-[0_0_20px_rgba(0,0,0,0.5)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-shadow duration-500">
                 <div className="flex items-start justify-between gap-3 mb-4">
-                  <div>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${project.tagColor}`}>
-                      {project.tag}
-                    </span>
-                    <h3 className="text-xl font-bold text-white mt-2">{project.title}</h3>
-                    <p className="text-sm text-gray-400">{project.subtitle}</p>
+                  <div className="w-full">
+                    <div className="flex justify-between items-center mb-2">
+                       <span className={`text-xs px-2.5 py-1 rounded-full font-semibold border ${project.tagColor.replace('bg-', 'border-').replace('/10', '/30')} ${project.tagColor} shadow-inner`}>
+                         {project.tag}
+                       </span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mt-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-emerald-400 transition-all duration-300">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-gray-400 mt-1 font-medium">{project.subtitle}</p>
                   </div>
                 </div>
 
-                <p className="text-gray-400 text-sm leading-relaxed mb-4">{project.description}</p>
+                <p className="text-gray-300 text-sm leading-relaxed mb-5 flex-grow">{project.description}</p>
 
-                <ul className="mb-4 space-y-1.5">
+                <ul className="mb-6 space-y-2 flex-grow">
                   {project.impact.map((point, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                      <span className="text-emerald-400 mt-0.5 shrink-0">▹</span> {point}
+                    <li key={i} className="flex items-start gap-2 text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                      <span className="text-emerald-400/70 group-hover:text-emerald-400 mt-0.5 shrink-0 transition-colors duration-300">▹</span> 
+                      <span>{point}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="flex flex-wrap gap-1.5 mb-5 mt-auto">
+                <div className="flex flex-wrap gap-2 mb-6 mt-auto">
                   {project.tech.map((t, i) => (
-                    <span key={i} className="text-xs text-blue-300 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">
+                    <span key={i} className="text-xs font-semibold text-blue-300 bg-white/5 px-2.5 py-1 rounded-md border border-white/10 group-hover:border-blue-500/30 group-hover:bg-blue-500/10 transition-colors duration-300">
                       {t}
                     </span>
                   ))}
                 </div>
 
-                <div className="flex gap-4 pt-2 border-t border-white/5">
+                <div className="flex gap-4 pt-4 border-t border-white/5">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors text-sm"
+                    className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors text-sm font-medium"
                   >
-                    <FaGithub size={16} /> GitHub
+                    <FaGithub size={18} /> GitHub
                   </a>
                   {project.demo && (
                     <a
                       href={project.demo}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors text-sm"
+                      className="flex items-center gap-1.5 text-emerald-500 hover:text-emerald-400 transition-colors text-sm font-medium"
                     >
-                      <ExternalLink size={15} /> Live Demo
+                      <ExternalLink size={16} /> Live Demo
                     </a>
                   )}
                 </div>
