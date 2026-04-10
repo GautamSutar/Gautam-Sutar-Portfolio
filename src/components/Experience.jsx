@@ -13,7 +13,7 @@ const experiences = [
   {
     role: 'Python Intern',
     company: 'Edunet Foundation',
-    duration: '15 Feb 2025 - 7 March 2025',
+    duration: 'Feb 15, 2025 - March 7, 2025',
     description: 'Collaborated on an AI-based resume ranking system that improved processing time for recruiters.',
     icon: <Code size={20} className="text-emerald-400" />
   }
