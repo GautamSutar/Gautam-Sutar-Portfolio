@@ -4,23 +4,16 @@ import { Briefcase, Award, BrainCircuit, Server, Code } from 'lucide-react';
 
 const experiences = [
   {
-    role: 'AI Intern',
-    company: 'Infosys Springboard',
-    duration: '2023 - Present',
-    description: 'Developed an ML model training on a 120K+ dataset utilizing Random Forest to predict and organize large scale data intelligently.',
-    icon: <BrainCircuit size={20} className="text-emerald-400" />
-  },
-  {
     role: 'Python Developer',
     company: 'Alphawizz',
-    duration: '2022 - 2023',
+    duration: 'July 7, 2025 - Sep 3, 2025',
     description: 'Designed and implemented secure REST APIs for core services. Formulated and integrated custom ML models into backend endpoints.',
     icon: <Server size={20} className="text-blue-400" />
   },
   {
     role: 'Python Intern',
     company: 'Edunet Foundation',
-    duration: '2021 - 2022',
+    duration: '15 Feb 2025 - 7 March 2025',
     description: 'Collaborated on an AI-based resume ranking system that improved processing time for recruiters.',
     icon: <Code size={20} className="text-emerald-400" />
   }
