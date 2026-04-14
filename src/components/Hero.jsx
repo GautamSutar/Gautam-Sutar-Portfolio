@@ -58,60 +58,141 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Visual / 3D Side */}
+        {/* Visual / Photo Side */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
           className="relative flex justify-center items-center pointer-events-auto"
+          style={{ minHeight: '460px' }}
         >
-          {/* Decorative glowing blobs behind the image representation */}
-          <motion.div 
-            animate={{ 
-              scale: [1, 1.1, 1],
-              opacity: [0.5, 0.8, 0.5]
+          {/* Warm amber glow — pulled from the photo's studio background */}
+          <motion.div
+            animate={{ opacity: [0.5, 0.8, 0.5], scale: [1, 1.06, 1] }}
+            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute rounded-[28px]"
+            style={{
+              width: '340px', height: '420px',
+              background: 'radial-gradient(ellipse at 50% 40%, rgba(190,130,55,0.28) 0%, rgba(120,70,20,0.15) 45%, transparent 75%)',
+              filter: 'blur(28px)',
             }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-500/30 rounded-full blur-[80px]"
           />
-          <motion.div 
-            animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.5, 0.9, 0.5]
+          {/* Cool blue counter-glow at bottom for depth */}
+          <motion.div
+            animate={{ opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+            className="absolute bottom-0 rounded-b-[28px]"
+            style={{
+              width: '280px', height: '160px',
+              background: 'radial-gradient(ellipse at 50% 100%, rgba(30,60,140,0.35) 0%, transparent 70%)',
+              filter: 'blur(20px)',
             }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1
-            }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-500/20 rounded-full blur-[60px] ml-10 mt-10"
           />
-          
-          {/* Floating interactive container */}
-          <motion.div 
-            animate={{ y: [-10, 10, -10] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            whileHover={{ scale: 1.05, rotate: 2 }}
-            className="relative z-10 w-64 h-64 md:w-80 md:h-80 glass-panel rounded-full flex items-center justify-center border border-white/10 overflow-hidden shadow-[0_0_50px_rgba(59,130,246,0.2)] cursor-pointer"
+
+          {/* Outer glow halo — amber-warm */}
+          <motion.div
+            animate={{ opacity: [0.18, 0.32, 0.18] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute z-0 rounded-[28px]"
+            style={{
+              width: '312px', height: '392px',
+              boxShadow: '0 0 0 1px rgba(200,145,60,0.2), 0 0 40px rgba(190,120,40,0.25), 0 0 80px rgba(100,60,10,0.15)',
+            }}
+          />
+
+          {/* Portrait card */}
+          <motion.div
+            animate={{ y: [-6, 6, -6] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+            whileHover={{ scale: 1.025, y: -2 }}
+            transition2={{ duration: 0.3 }}
+            className="relative z-10 cursor-pointer"
           >
-            <div className="w-full h-full bg-gradient-to-br from-blue-500/10 to-emerald-500/10 flex flex-col items-center justify-center backdrop-blur-sm">
-               <motion.span 
-                 animate={{ rotate: 360 }}
-                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                 className="text-6xl text-white/50 mb-2 inline-block"
-               >
-                 &lt;/&gt;
-               </motion.span>
-               <span className="text-xl font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mt-2 tracking-wider">
-                 AI x Backend
-               </span>
-               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            {/* Outer border — warm gold top, cool blue bottom */}
+            <div
+              className="p-[1.5px] rounded-[22px]"
+              style={{
+                background: 'linear-gradient(170deg, rgba(218,165,60,0.9) 0%, rgba(200,150,70,0.5) 30%, rgba(40,60,130,0.5) 70%, rgba(60,100,200,0.7) 100%)',
+              }}
+            >
+              {/* Inner dark gap — the "frame" */}
+              <div className="p-[3px] rounded-[21px] bg-[#05080f]">
+                {/* Inner subtle border */}
+                <div
+                  className="rounded-[18px] overflow-hidden relative"
+                  style={{
+                    width: '270px',
+                    height: '350px',
+                  }}
+                >
+                  <img
+                    src="/Gautam.png"
+                    alt="Gautam Sutar"
+                    className="w-full h-full object-cover object-top"
+                    style={{ objectPosition: '50% 5%' }}
+                  />
+                  {/* Top light hit — like light catching a frame edge */}
+                  <div
+                    className="absolute inset-x-0 top-0 h-24 pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(to bottom, rgba(255,220,150,0.07) 0%, transparent 100%)',
+                    }}
+                  />
+                  {/* Bottom dark vignette — shirt blends into dark frame */}
+                  <div
+                    className="absolute inset-x-0 bottom-0 h-28 pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(to top, rgba(5,8,15,0.7) 0%, rgba(5,8,15,0.2) 60%, transparent 100%)',
+                    }}
+                  />
+                  {/* Subtle diagonal gleam sweep */}
+                  <motion.div
+                    animate={{ x: ['-160%', '260%'] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'linear', repeatDelay: 4 }}
+                    className="absolute inset-0 z-10 w-1/4 h-full pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(to right, transparent, rgba(255,230,180,0.08), transparent)',
+                      transform: 'skewX(-20deg)',
+                    }}
+                  />
+                </div>
+              </div>
             </div>
+
+            {/* Gold corner accents — top only (warm light hits top) */}
+            <div
+              className="absolute top-0 left-0 w-6 h-6 pointer-events-none"
+              style={{
+                borderTop: '2px solid rgba(218,165,60,0.85)',
+                borderLeft: '2px solid rgba(218,165,60,0.85)',
+                borderRadius: '20px 0 0 0',
+              }}
+            />
+            <div
+              className="absolute top-0 right-0 w-6 h-6 pointer-events-none"
+              style={{
+                borderTop: '2px solid rgba(218,165,60,0.85)',
+                borderRight: '2px solid rgba(218,165,60,0.85)',
+                borderRadius: '0 20px 0 0',
+              }}
+            />
+            {/* Blue corner accents — bottom only (cool dark shadow area) */}
+            <div
+              className="absolute bottom-0 left-0 w-6 h-6 pointer-events-none"
+              style={{
+                borderBottom: '2px solid rgba(60,100,210,0.7)',
+                borderLeft: '2px solid rgba(60,100,210,0.7)',
+                borderRadius: '0 0 0 20px',
+              }}
+            />
+            <div
+              className="absolute bottom-0 right-0 w-6 h-6 pointer-events-none"
+              style={{
+                borderBottom: '2px solid rgba(60,100,210,0.7)',
+                borderRight: '2px solid rgba(60,100,210,0.7)',
+                borderRadius: '0 0 20px 0',
+              }}
+            />
           </motion.div>
         </motion.div>
       </div>
